@@ -56,5 +56,7 @@
 
 ---
 Скрипт для сбора данных https://github.com/klassnenkiy/stock_price_prediction/blob/main/parser.ipynb
+
+
 **Дата обновления файла**: `2024-11-02`
 
