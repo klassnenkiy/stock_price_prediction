@@ -7,7 +7,7 @@
 - **Количество акций (тикеров)**: 253
 - **Таймфрейм данных**: Дневной (с 2023-10-30 по 2024-10-30)
 - **Формат данных**: Табличные данные в формате CSV
-- **Ссылка на данные**: [Ссылка на облачное хранилище с CSV-файлом](https://drive.google.com/file/d/1Rn3-XWfgK-fs7-8G2HM9bkLQ9utTA4wJ/view?usp=sharing)
+- **Ссылка на данные**: [Ссылка с CSV-файлом](https://drive.google.com/file/d/1Rn3-XWfgK-fs7-8G2HM9bkLQ9utTA4wJ/view?usp=sharing)
 
 ## Описание признаков
 
