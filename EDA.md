@@ -1,5 +1,5 @@
 **Ноутбук ко 2му чекпоинту**
-(обновляется) https://colab.research.google.com/drive/1Im7gdpjKY5fOQ19gPQb5OnVdz3t6v0xc#scrollTo=Zjv7dgMJrHTR
+(от 03-11-2024) https://colab.research.google.com/drive/1Im7gdpjKY5fOQ19gPQb5OnVdz3t6v0xc#scrollTo=Zjv7dgMJrHTR
 
 ### Исследованные данные и выявленные паттерны
 
