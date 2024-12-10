@@ -35,7 +35,7 @@ a) Сбор данных:
 
 б) Разработка моделей:
 - Классические модели временных рядов (SARIMAX), учет сезонности и остатков.
-- Линейная регрессия, Random Forest, XGBoost и другие.
+- [Линейная регрессия(Бейзлайн)](https://github.com/klassnenkiy/stock_price_prediction/blob/main/ch_3/Baseline_ch3.ipynb), Random Forest, XGBoost и [другие](https://github.com/klassnenkiy/stock_price_prediction/blob/main/ch_3/Experiments_ch3.ipynb).
 - Модель Prophet для долгосрочного прогнозирования (особенно для предсказания сезонных тенденций).
      
 в) Метрики и подбор гиперпараметров:
