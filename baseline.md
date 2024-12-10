@@ -1,1 +1,2 @@
 - [Эксперементы](https://colab.research.google.com/drive/16Kgw0fNPv0B6oWXHEPdaxAO-yhAG2ZH7?usp=sharing)
+- пайплайном обучения и лучшая из моделей
