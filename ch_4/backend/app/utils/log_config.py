@@ -1,7 +1,17 @@
 import logging
 from logging.handlers import RotatingFileHandler
+import json_log_formatter
 
 def setup_logging():
-    log_handler = RotatingFileHandler("logs/app.log", maxBytes=10**6, backupCount=5)
-    log_format = "%(asctime)s - %(levelname)s - %(message)s"
-    logging.basicConfig(level=logging.INFO, handlers=[log_handler], format=log_format)
+    formatter = json_log_formatter.JSONFormatter()
+
+    file_handler = RotatingFileHandler("logs/app.log", maxBytes=10**6, backupCount=5)
+    file_handler.setFormatter(formatter)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+
+    logging.basicConfig(
+        level=logging.INFO,
+        handlers=[file_handler, console_handler],
+    )

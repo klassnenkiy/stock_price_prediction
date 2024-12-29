@@ -2,15 +2,20 @@ import streamlit as st
 from pages import EDA, ModelTraining, Predictions
 import logging
 from logging.handlers import RotatingFileHandler
+import json_log_formatter
 
 
-log_handler = RotatingFileHandler("logs/streamlit.log", maxBytes=10**6, backupCount=5)
-log_format = "%(asctime)s - %(levelname)s - %(message)s"
-logging.basicConfig(level=logging.INFO, handlers=[log_handler], format=log_format)
 
-logger = logging.getLogger(__name__)
+formatter = json_log_formatter.JSONFormatter()
+file_handler = RotatingFileHandler("logs/streamlit.log", maxBytes=10**6, backupCount=5)
+file_handler.setFormatter(formatter)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
 
-logger.info("Streamlit app has started")
+logging.basicConfig(
+    level=logging.INFO,
+    handlers=[file_handler, console_handler],
+)
 
 
 def main():

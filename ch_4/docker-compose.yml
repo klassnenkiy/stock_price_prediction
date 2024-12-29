@@ -7,15 +7,38 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - ./logs:/var/log/app/backend
     environment:
       - PYTHONPATH=/app
     depends_on:
       - frontend
+      - filebeat
   frontend:
     build: ./frontend
     ports:
       - "8501:8501"
     volumes:
       - ./frontend:/app
+      - ./logs:/var/log/app/frontend
     depends_on:
       - backend
+      - filebeat
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.10.0
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./logs:/var/log/app
+    depends_on:
+      - elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.0
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch

@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 def show_eda_page():
     st.header("Exploratory Data Analysis (EDA)")
@@ -15,12 +14,8 @@ def show_eda_page():
         st.write(data.describe())
 
         st.subheader("Closing Price over Time")
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(data['TRADEDATE'], data['CLOSE'], label="Closing Price")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Price")
-        ax.set_title("Stock Closing Price Over Time")
-        st.pyplot(fig)
+        fig = px.line(data, x='TRADEDATE', y='CLOSE', title="Stock Closing Price Over Time")
+        st.plotly_chart(fig)
 
         ticker = st.selectbox("Select Ticker", data['TICKER'].unique())
         ticker_data = data[data['TICKER'] == ticker]
@@ -28,9 +23,5 @@ def show_eda_page():
         st.write(ticker_data)
 
         st.subheader(f"Closing Price for {ticker}")
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(ticker_data['TRADEDATE'], ticker_data['CLOSE'], label=f"{ticker} Closing Price", color="orange")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Price")
-        ax.set_title(f"{ticker} Stock Price Over Time")
-        st.pyplot(fig)
+        fig = px.line(ticker_data, x='TRADEDATE', y='CLOSE', title=f"{ticker} Stock Price Over Time")
+        st.plotly_chart(fig)
