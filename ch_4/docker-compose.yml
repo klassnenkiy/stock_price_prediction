@@ -1,16 +1,21 @@
-version: "3.8"
+version: '3.7'
+
 services:
   backend:
-    build:
-      context: ./backend
+    build: ./backend
     ports:
       - "8000:8000"
     volumes:
-      - ./backend/logs:/app/logs
+      - ./backend:/app
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - frontend
   frontend:
-    build:
-      context: ./frontend
+    build: ./frontend
     ports:
       - "8501:8501"
     volumes:
-      - ./frontend/logs:/app/logs
+      - ./frontend:/app
+    depends_on:
+      - backend
