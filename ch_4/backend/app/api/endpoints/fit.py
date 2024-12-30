@@ -1,7 +1,7 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 from app.services.training import train_model
-from typing import Dict
+from typing import Dict, List
 import logging
 
 logger = logging.getLogger(__name__)
@@ -34,4 +34,3 @@ async def fit_model(request: TrainRequest, background_tasks: BackgroundTasks) ->
     except Exception as e:
         logger.error(f"Training failed: {str(e)}")
         raise HTTPException(status_code=500, detail="Training process failed")
-

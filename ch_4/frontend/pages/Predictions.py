@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import plotly.graph_objects as go
 
+
 def show_predictions_page():
     st.header("Model Predictions")
     ticker = st.text_input("Enter Ticker (e.g., SBER)", "")
@@ -10,8 +11,8 @@ def show_predictions_page():
 
     if st.button("Get Predictions"):
         if ticker:
-            request_data = {"ticker": ticker, "forecast_days": forecast_days}
-            response = requests.post("http://localhost:8000/predict/", json=request_data)
+            request_data = {"ticker": ticker, "X_input": [[1] * forecast_days]}
+            response = requests.post("http://backend:8000/predict/", json=request_data)
             if response.status_code == 200:
                 prediction_data = response.json()
                 forecast_dates = prediction_data["forecast_dates"]

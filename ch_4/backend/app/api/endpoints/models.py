@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.models.linear_regression import list_models, set_active_model
+from app.models.linear_regression import list_models, load_metrics, set_active_model
 from pydantic import BaseModel
 from typing import List, Dict
 import logging
@@ -14,6 +14,11 @@ class Model(BaseModel):
 
 class SetModelResponse(BaseModel):
     status: str
+
+class ExperimentMetricsResponse(BaseModel):
+    ticker: str
+    train_losses: List[float]
+    val_losses: List[float]
 
 @router.get("/", response_model=List[Model])
 async def get_models() -> List[Model]:
@@ -32,3 +37,19 @@ async def set_model(model_id: str) -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Failed to set active model: {str(e)}")
         raise HTTPException(status_code=500, detail="Error setting active model")
+
+@router.get("/metrics", response_model=List[ExperimentMetricsResponse])
+async def get_experiment_metrics(tickers: List[str]) -> List[ExperimentMetricsResponse]:
+    metrics = []
+    for ticker in tickers:
+        try:
+            experiment_metrics = load_metrics(ticker)
+            metrics.append(ExperimentMetricsResponse(
+                ticker=ticker,
+                train_losses=experiment_metrics.get('train_losses', []),
+                val_losses=experiment_metrics.get('val_losses', [])
+            ))
+        except Exception as e:
+            logger.error(f"Failed to fetch metrics for ticker {ticker}: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Error retrieving metrics for {ticker}")
+    return metrics

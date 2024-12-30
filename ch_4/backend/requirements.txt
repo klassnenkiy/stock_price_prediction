@@ -10,3 +10,4 @@ loguru==0.7.0
 python-dotenv==0.21.1
 requests==2.31.0
 plotly==5.11.0
+json-log-formatter

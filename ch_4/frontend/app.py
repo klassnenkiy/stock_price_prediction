@@ -7,6 +7,8 @@ import json_log_formatter
 
 
 formatter = json_log_formatter.JSONFormatter()
+
+
 file_handler = RotatingFileHandler("logs/streamlit.log", maxBytes=10**6, backupCount=5)
 file_handler.setFormatter(formatter)
 console_handler = logging.StreamHandler()

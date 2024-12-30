@@ -1,6 +1,8 @@
 import streamlit as st
 import requests
 import plotly.graph_objects as go
+import pandas as pd
+
 
 def show_model_training_page():
     st.header("Model Training")
@@ -23,8 +25,10 @@ def show_model_training_page():
     training_data_file = st.file_uploader("Upload Training Data (CSV)", type=["csv"])
     if training_data_file:
         training_data = pd.read_csv(training_data_file)
+        training_data['TRADEDATE'] = pd.to_datetime(training_data['TRADEDATE'])
+
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=training_data['Epoch'], y=training_data['Train_Loss'], mode='lines', name='Train Loss'))
-        fig.add_trace(go.Scatter(x=training_data['Epoch'], y=training_data['Val_Loss'], mode='lines', name='Validation Loss'))
-        fig.update_layout(title="Training and Validation Loss", xaxis_title="Epoch", yaxis_title="Loss")
+        fig.add_trace(
+            go.Scatter(x=training_data['TRADEDATE'], y=training_data['CLOSE'], mode='lines', name='Close Price'))
+        fig.update_layout(title="Training and Validation Loss", xaxis_title="Date", yaxis_title="Price")
         st.plotly_chart(fig)
