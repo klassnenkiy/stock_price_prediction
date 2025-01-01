@@ -1,0 +1,65 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./logs:/var/log/app/backend
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - filebeat
+      - elasticsearch
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8502:8501"
+    volumes:
+      - ./frontend:/app
+      - ./logs:/var/log/app/frontend
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  filebeat:
+    image: elastic/filebeat:8.5.1
+    volumes:
+      - .filebeat-config:/usr/share/filebeat/config/
+      - ./logs:/var/log/app
+    depends_on:
+      - elasticsearch
+    networks:
+      - app_network
+
+  elasticsearch:
+    image: bitnami/elasticsearch:7.15.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 30s
+      retries: 5
+    networks:
+      - app_network
+
+  kibana:
+    image: bitnami/kibana:7.15.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
