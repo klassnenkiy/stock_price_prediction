@@ -113,3 +113,7 @@
 
 1. Откройте frontend-приложение по адресу `http://localhost:8502`.
 2. Загрузите данные о ценах акций, обучите модель и получите прогнозы.
+
+## Скриншоты Работы Сервиса
+
+https://github.com/klassnenkiy/stock_price_prediction/tree/dev/ch_4/img
