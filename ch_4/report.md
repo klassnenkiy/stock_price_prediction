@@ -117,3 +117,7 @@
 ## Скриншоты Работы Сервиса
 
 https://github.com/klassnenkiy/stock_price_prediction/tree/dev/ch_4/img
+
+## Реализация бонусов
+
+из бонусов так или иначе было сделано все кроме размещения на VPS
