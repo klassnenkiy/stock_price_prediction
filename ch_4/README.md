@@ -56,3 +56,8 @@ curl -X 'POST' \
   "window_size": 10,
   "forecast_days": 30
 }'
+```
+
+## Скриншоты Работы Сервиса
+
+https://github.com/klassnenkiy/stock_price_prediction/tree/dev/ch_4/img
