@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./backend
+    build: ../ch_4/backend
     ports:
       - "8000:8000"
     volumes:
@@ -15,7 +15,7 @@ services:
       - app_network
 
   frontend:
-    build: ./frontend
+    build: ../ch_4/frontend
     ports:
       - "8502:8501"
     volumes:
