@@ -9,14 +9,10 @@ import joblib
 from logging.handlers import RotatingFileHandler
 
 
-api_url = "http://localhost:8000"
+api_url = "http://backend:8000"
 
 
-log_dir = "logs"
-if not os.path.exists(log_dir):
-    os.makedirs(log_dir)
-
-log_filename = os.path.join(log_dir, "streamlit_app.log")
+log_filename = "/var/log/app/frontend/app.log"
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 handler = RotatingFileHandler(log_filename, maxBytes=10*1024*1024, backupCount=5)
@@ -242,7 +238,7 @@ if data is not None:
 
     if st.button("Обучить модель"):
         if train_model(ticker, window_size, forecast_days):
-            st.rerun()
+            st.experimental_rerun()
 
     available_models = list_models()
     if available_models:

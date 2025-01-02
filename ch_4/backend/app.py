@@ -14,13 +14,8 @@ from typing import List, Optional
 import asyncio
 
 
-log_dir = "logs"
-if not os.path.exists(log_dir):
-    os.makedirs(log_dir)
-log_filename = os.path.join(log_dir, "app.log")
-log_handler = RotatingFileHandler(
-    log_filename, maxBytes=10 * 1024 * 1024, backupCount=5
-)
+log_filename = "/var/log/app/backend/app.log"
+log_handler = RotatingFileHandler(log_filename, maxBytes=10 * 1024 * 1024, backupCount=5)
 log_handler.setLevel(logging.INFO)
 formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 log_handler.setFormatter(formatter)
@@ -189,10 +184,10 @@ async def fit(ticker: str, params: ModelParams, background_tasks: BackgroundTask
 async def train_model_with_timeout(ticker_data, window_size, forecast_days, timeout):
     """Запускает обучение модели с тайм-аутом."""
     try:
-        await asyncio.wait_for(
-            train_model(ticker_data, window_size, forecast_days),
-            timeout=timeout
+        result = await asyncio.to_thread(
+            train_model, ticker_data, window_size, forecast_days
         )
+        return result
     except asyncio.TimeoutError:
         logging.error(
             f"Model training for {ticker_data['TICKER'].iloc[0]} exceeded timeout limit of {timeout} seconds."
