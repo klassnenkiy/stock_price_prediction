@@ -5,7 +5,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - ./logs:/var/log/app/backend
+      - C:\Dev\hse_yp\ch_4\backend\logs:/var/log/app/backend
     environment:
       - PYTHONPATH=/app
     depends_on:
@@ -20,7 +20,7 @@ services:
       - "8502:8501"
     volumes:
       - ./frontend:/app
-      - ./logs:/var/log/app/frontend
+      - C:\Dev\hse_yp\ch_4\frontend\logs:/var/log/app/frontend
     depends_on:
       - backend
     networks:
@@ -30,7 +30,8 @@ services:
     image: elastic/filebeat:8.5.1
     volumes:
       - .filebeat-config:/usr/share/filebeat/config/
-      - ./logs:/var/log/app
+      - C:\Dev\hse_yp\ch_4\frontend\logs:/var/log/app/frontend
+      - C:\Dev\hse_yp\ch_4\backend\logs:/var/log/app/backend
     depends_on:
       - elasticsearch
     networks:
