@@ -8,5 +8,5 @@ def filter_data_by_tickers(data, tickers):
 
 def preprocess_data(data):
     data['TRADEDATE'] = pd.to_datetime(data['TRADEDATE'])
-    # Можно добавить другие шаги предобработки
+    
     return data
